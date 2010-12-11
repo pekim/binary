@@ -16,13 +16,43 @@ exports.addByte = function(test) {
   test.done();
 };
 
+exports.addByteTooBig = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addByte(0x123);
+  var b = bb.getBuffer();
+  
+  test.deepEqual(b, new Buffer([0x23]))
+
+  test.done();
+};
+
+exports.addInt16 = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt16(0x1234);
+  var b = bb.getBuffer();
+  
+  test.deepEqual(b, new Buffer([0x12, 0x34]))
+
+  test.done();
+};
+
+exports.addInt16TooBig = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt16(0x12345);
+  var b = bb.getBuffer();
+  
+  test.deepEqual(b, new Buffer([0x23, 0x45]))
+
+  test.done();
+};
+
 exports.multipleAdds = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
-  bb.addByte(0x22);
+  bb.addInt16(0x1234);
   var b = bb.getBuffer();
 
-  test.deepEqual(b, new Buffer([0x11, 0x22]))
+  test.deepEqual(b, new Buffer([0x11, 0x12, 0x1234]))
 
   test.done();
 };
