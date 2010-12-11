@@ -16,6 +16,26 @@ exports.addByte = function(test) {
   test.done();
 };
 
+exports.addByteMin = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addByte(0x00);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x00]))
+
+  test.done();
+};
+
+exports.addByteMax = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addByte(0xff);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0xff]))
+
+  test.done();
+};
+
 exports.addByteTooBig = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x123);
@@ -36,6 +56,26 @@ exports.addInt16 = function(test) {
   test.done();
 };
 
+exports.addInt16Min = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt16(0x0000);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x00, 0x00]))
+
+  test.done();
+};
+
+exports.addInt16Max = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt16(0xffff);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0xff, 0xff]))
+
+  test.done();
+};
+
 exports.addInt16TooBig = function(test) {
   var bb = new BinaryBuffer();
   bb.addInt16(0x12345);
@@ -52,6 +92,26 @@ exports.addInt32 = function(test) {
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x12, 0x34, 0x56, 0x78]))
+
+  test.done();
+};
+
+exports.addInt32Min = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt32(0x00000000);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x00, 0x00, 0x00, 0x00]))
+
+  test.done();
+};
+
+exports.addInt32Max = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt32(0xffffffff);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0xff, 0xff, 0xff, 0xff]))
 
   test.done();
 };
@@ -110,9 +170,12 @@ exports.multipleAdds = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
   bb.addInt16(0x1234);
+  bb.addInt32(0x12345678);
+  bb.addString('a');
+  bb.addStringZ('b');
 
   var b = bb.getBuffer();
-  test.deepEqual(b, new Buffer([0x11, 0x12, 0x1234]))
+  test.deepEqual(b, new Buffer([0x11, 0x12, 0x34, 0x12, 0x34, 0x56, 0x78, 0x61, 0x62, 0x00]))
 
   test.done();
 };
