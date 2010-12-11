@@ -8,11 +8,21 @@ exports.BinaryBuffer = function(test) {
 
 exports.oneByte = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(123);
+  bb.addByte(0x11);
   var b = bb.getBuffer();
   
-  test.equals(b.length, 1);
-  test.equals(b[0], 123);
+  test.deepEqual(b, new Buffer([0x11]))
+
+  test.done();
+};
+
+exports.twoBytes = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addByte(0x11);
+  bb.addByte(0x22);
+  var b = bb.getBuffer();
+
+  test.deepEqual(b, new Buffer([0x11, 0x22]))
 
   test.done();
 };
