@@ -46,6 +46,26 @@ exports.addInt16TooBig = function(test) {
   test.done();
 };
 
+exports.addInt32 = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt32(0x12345678);
+  var b = bb.getBuffer();
+  
+  test.deepEqual(b, new Buffer([0x12, 0x34, 0x56, 0x78]))
+
+  test.done();
+};
+
+exports.addInt32TooBig = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt32(0x123456789);
+  var b = bb.getBuffer();
+  
+  test.deepEqual(b, new Buffer([0x23, 0x45, 0x67, 0x89]))
+
+  test.done();
+};
+
 exports.multipleAdds = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
