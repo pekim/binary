@@ -6,7 +6,7 @@ exports.BinaryBuffer = function(test) {
   test.done();
 };
 
-exports.oneByte = function(test) {
+exports.addByte = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
   var b = bb.getBuffer();
@@ -16,7 +16,7 @@ exports.oneByte = function(test) {
   test.done();
 };
 
-exports.twoBytes = function(test) {
+exports.multipleAdds = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
   bb.addByte(0x22);
