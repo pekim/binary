@@ -166,13 +166,13 @@ exports.addEmptyStringZ = function(test) {
   test.done();
 };
 
-exports.multipleAdds = function(test) {
+exports.multipleAddsWithFluency = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(0x11);
-  bb.addInt16(0x1234);
-  bb.addInt32(0x12345678);
-  bb.addString('a');
-  bb.addStringZ('b');
+  bb.addByte(0x11)
+    .addInt16(0x1234)
+    .addInt32(0x12345678)
+    .addString('a')
+    .addStringZ('b');
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x11, 0x12, 0x34, 0x12, 0x34, 0x56, 0x78, 0x61, 0x62, 0x00]))
