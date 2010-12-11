@@ -9,8 +9,8 @@ exports.BinaryBuffer = function(test) {
 exports.addByte = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
+
   var b = bb.getBuffer();
-  
   test.deepEqual(b, new Buffer([0x11]))
 
   test.done();
@@ -19,8 +19,8 @@ exports.addByte = function(test) {
 exports.addByteTooBig = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x123);
+
   var b = bb.getBuffer();
-  
   test.deepEqual(b, new Buffer([0x23]))
 
   test.done();
@@ -29,8 +29,8 @@ exports.addByteTooBig = function(test) {
 exports.addInt16 = function(test) {
   var bb = new BinaryBuffer();
   bb.addInt16(0x1234);
+
   var b = bb.getBuffer();
-  
   test.deepEqual(b, new Buffer([0x12, 0x34]))
 
   test.done();
@@ -39,8 +39,8 @@ exports.addInt16 = function(test) {
 exports.addInt16TooBig = function(test) {
   var bb = new BinaryBuffer();
   bb.addInt16(0x12345);
+
   var b = bb.getBuffer();
-  
   test.deepEqual(b, new Buffer([0x23, 0x45]))
 
   test.done();
@@ -49,8 +49,8 @@ exports.addInt16TooBig = function(test) {
 exports.addInt32 = function(test) {
   var bb = new BinaryBuffer();
   bb.addInt32(0x12345678);
+
   var b = bb.getBuffer();
-  
   test.deepEqual(b, new Buffer([0x12, 0x34, 0x56, 0x78]))
 
   test.done();
@@ -59,9 +59,49 @@ exports.addInt32 = function(test) {
 exports.addInt32TooBig = function(test) {
   var bb = new BinaryBuffer();
   bb.addInt32(0x123456789);
+
   var b = bb.getBuffer();
-  
   test.deepEqual(b, new Buffer([0x23, 0x45, 0x67, 0x89]))
+
+  test.done();
+};
+
+exports.addString = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addString('abc');
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x61, 0x62, 0x63]))
+
+  test.done();
+};
+
+exports.addEmptyString = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addString('');
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([]))
+
+  test.done();
+};
+
+exports.addStringZ = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addStringZ('abc');
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x61, 0x62, 0x63, 0x00]))
+
+  test.done();
+};
+
+exports.addEmptyStringZ = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addStringZ('');
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x00]))
 
   test.done();
 };
@@ -70,8 +110,8 @@ exports.multipleAdds = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x11);
   bb.addInt16(0x1234);
-  var b = bb.getBuffer();
 
+  var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x11, 0x12, 0x1234]))
 
   test.done();
