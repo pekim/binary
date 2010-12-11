@@ -1,4 +1,5 @@
-var BinaryBuffer = require('../lib/binary-buffer').BinaryBuffer;
+const BinaryBuffer = require('../lib/binary-buffer').BinaryBuffer,
+      Endian = require('../lib/binary-buffer').Endian;
 
 exports.BinaryBuffer = function(test) {
   test.ok(BinaryBuffer);
@@ -46,12 +47,22 @@ exports.addByteTooBig = function(test) {
   test.done();
 };
 
-exports.addInt16 = function(test) {
-  var bb = new BinaryBuffer();
+exports.addInt16BE = function(test) {
+  var bb = new BinaryBuffer(Endian.Big);
   bb.addInt16(0x1234);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x12, 0x34]))
+
+  test.done();
+};
+
+exports.addInt16LE = function(test) {
+  var bb = new BinaryBuffer(Endian.Little);
+  bb.addInt16(0x1234);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x34, 0x12]))
 
   test.done();
 };
@@ -86,12 +97,22 @@ exports.addInt16TooBig = function(test) {
   test.done();
 };
 
-exports.addInt32 = function(test) {
-  var bb = new BinaryBuffer();
+exports.addInt32BE = function(test) {
+  var bb = new BinaryBuffer(Endian.Big);
   bb.addInt32(0x12345678);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x12, 0x34, 0x56, 0x78]))
+
+  test.done();
+};
+
+exports.addInt32LE = function(test) {
+  var bb = new BinaryBuffer(Endian.Little);
+  bb.addInt32(0x12345678);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0x78, 0x56, 0x34, 0x12]))
 
   test.done();
 };
