@@ -17,6 +17,16 @@ exports.addByte = function(test) {
   test.done();
 };
 
+exports.addByteNegative = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addByte(-30);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0xE2]))
+
+  test.done();
+};
+
 exports.addByteMin = function(test) {
   var bb = new BinaryBuffer();
   bb.addByte(0x00);
@@ -67,6 +77,16 @@ exports.addInt16LE = function(test) {
   test.done();
 };
 
+exports.addInt16Negative = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt16(-30);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0xFF, 0xE2]))
+
+  test.done();
+};
+
 exports.addInt16Min = function(test) {
   var bb = new BinaryBuffer();
   bb.addInt16(0x0000);
@@ -113,6 +133,16 @@ exports.addInt32LE = function(test) {
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x78, 0x56, 0x34, 0x12]))
+
+  test.done();
+};
+
+exports.addInt32Negative = function(test) {
+  var bb = new BinaryBuffer();
+  bb.addInt32(-30);
+
+  var b = bb.getBuffer();
+  test.deepEqual(b, new Buffer([0xFF, 0xFF, 0xFF, 0xE2]))
 
   test.done();
 };
