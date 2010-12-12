@@ -1,15 +1,9 @@
 const BinaryBuffer = require('../lib/binary-buffer').BinaryBuffer,
       Endian = require('../lib/binary-buffer').Endian;
 
-exports.BinaryBuffer = function(test) {
-  test.ok(BinaryBuffer);
-
-  test.done();
-};
-
-exports.addByte = function(test) {
+exports.writeByte = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(0x11);
+  bb.writeByte(0x11);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x11]))
@@ -17,9 +11,9 @@ exports.addByte = function(test) {
   test.done();
 };
 
-exports.addByteNegative = function(test) {
+exports.writeByteNegative = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(-30);
+  bb.writeByte(-30);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0xE2]))
@@ -27,9 +21,9 @@ exports.addByteNegative = function(test) {
   test.done();
 };
 
-exports.addByteMin = function(test) {
+exports.writeByteMin = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(0x00);
+  bb.writeByte(0x00);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x00]))
@@ -37,9 +31,9 @@ exports.addByteMin = function(test) {
   test.done();
 };
 
-exports.addByteMax = function(test) {
+exports.writeByteMax = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(0xff);
+  bb.writeByte(0xff);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0xff]))
@@ -47,9 +41,9 @@ exports.addByteMax = function(test) {
   test.done();
 };
 
-exports.addByteTooBig = function(test) {
+exports.writeByteTooBig = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(0x123);
+  bb.writeByte(0x123);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x23]))
@@ -57,9 +51,9 @@ exports.addByteTooBig = function(test) {
   test.done();
 };
 
-exports.addInt16BE = function(test) {
+exports.writeInt16BE = function(test) {
   var bb = new BinaryBuffer(Endian.Big);
-  bb.addInt16(0x1234);
+  bb.writeInt16(0x1234);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x12, 0x34]))
@@ -67,9 +61,9 @@ exports.addInt16BE = function(test) {
   test.done();
 };
 
-exports.addInt16LE = function(test) {
+exports.writeInt16LE = function(test) {
   var bb = new BinaryBuffer(Endian.Little);
-  bb.addInt16(0x1234);
+  bb.writeInt16(0x1234);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x34, 0x12]))
@@ -77,9 +71,9 @@ exports.addInt16LE = function(test) {
   test.done();
 };
 
-exports.addInt16Negative = function(test) {
+exports.writeInt16Negative = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt16(-30);
+  bb.writeInt16(-30);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0xFF, 0xE2]))
@@ -87,9 +81,9 @@ exports.addInt16Negative = function(test) {
   test.done();
 };
 
-exports.addInt16Min = function(test) {
+exports.writeInt16Min = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt16(0x0000);
+  bb.writeInt16(0x0000);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x00, 0x00]))
@@ -97,9 +91,9 @@ exports.addInt16Min = function(test) {
   test.done();
 };
 
-exports.addInt16Max = function(test) {
+exports.writeInt16Max = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt16(0xffff);
+  bb.writeInt16(0xffff);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0xff, 0xff]))
@@ -107,9 +101,9 @@ exports.addInt16Max = function(test) {
   test.done();
 };
 
-exports.addInt16TooBig = function(test) {
+exports.writeInt16TooBig = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt16(0x12345);
+  bb.writeInt16(0x12345);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x23, 0x45]))
@@ -117,9 +111,9 @@ exports.addInt16TooBig = function(test) {
   test.done();
 };
 
-exports.addInt32BE = function(test) {
+exports.writeInt32BE = function(test) {
   var bb = new BinaryBuffer(Endian.Big);
-  bb.addInt32(0x12345678);
+  bb.writeInt32(0x12345678);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x12, 0x34, 0x56, 0x78]))
@@ -127,9 +121,9 @@ exports.addInt32BE = function(test) {
   test.done();
 };
 
-exports.addInt32LE = function(test) {
+exports.writeInt32LE = function(test) {
   var bb = new BinaryBuffer(Endian.Little);
-  bb.addInt32(0x12345678);
+  bb.writeInt32(0x12345678);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x78, 0x56, 0x34, 0x12]))
@@ -137,9 +131,9 @@ exports.addInt32LE = function(test) {
   test.done();
 };
 
-exports.addInt32Negative = function(test) {
+exports.writeInt32Negative = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt32(-30);
+  bb.writeInt32(-30);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0xFF, 0xFF, 0xFF, 0xE2]))
@@ -147,9 +141,9 @@ exports.addInt32Negative = function(test) {
   test.done();
 };
 
-exports.addInt32Min = function(test) {
+exports.writeInt32Min = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt32(0x00000000);
+  bb.writeInt32(0x00000000);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x00, 0x00, 0x00, 0x00]))
@@ -157,9 +151,9 @@ exports.addInt32Min = function(test) {
   test.done();
 };
 
-exports.addInt32Max = function(test) {
+exports.writeInt32Max = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt32(0xffffffff);
+  bb.writeInt32(0xffffffff);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0xff, 0xff, 0xff, 0xff]))
@@ -167,9 +161,9 @@ exports.addInt32Max = function(test) {
   test.done();
 };
 
-exports.addInt32TooBig = function(test) {
+exports.writeInt32TooBig = function(test) {
   var bb = new BinaryBuffer();
-  bb.addInt32(0x123456789);
+  bb.writeInt32(0x123456789);
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x23, 0x45, 0x67, 0x89]))
@@ -177,9 +171,9 @@ exports.addInt32TooBig = function(test) {
   test.done();
 };
 
-exports.addString = function(test) {
+exports.writeString = function(test) {
   var bb = new BinaryBuffer();
-  bb.addString('abc');
+  bb.writeString('abc');
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x61, 0x62, 0x63]))
@@ -187,9 +181,9 @@ exports.addString = function(test) {
   test.done();
 };
 
-exports.addEmptyString = function(test) {
+exports.writeEmptyString = function(test) {
   var bb = new BinaryBuffer();
-  bb.addString('');
+  bb.writeString('');
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([]))
@@ -197,9 +191,9 @@ exports.addEmptyString = function(test) {
   test.done();
 };
 
-exports.addStringZ = function(test) {
+exports.writeStringZ = function(test) {
   var bb = new BinaryBuffer();
-  bb.addStringZ('abc');
+  bb.writeStringZ('abc');
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x61, 0x62, 0x63, 0x00]))
@@ -207,9 +201,9 @@ exports.addStringZ = function(test) {
   test.done();
 };
 
-exports.addEmptyStringZ = function(test) {
+exports.writeEmptyStringZ = function(test) {
   var bb = new BinaryBuffer();
-  bb.addStringZ('');
+  bb.writeStringZ('');
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x00]))
@@ -217,13 +211,13 @@ exports.addEmptyStringZ = function(test) {
   test.done();
 };
 
-exports.multipleAddsWithFluency = function(test) {
+exports.multipleWritesWithFluency = function(test) {
   var bb = new BinaryBuffer();
-  bb.addByte(0x11)
-    .addInt16(0x1234)
-    .addInt32(0x12345678)
-    .addString('a')
-    .addStringZ('b');
+  bb.writeByte(0x11)
+    .writeInt16(0x1234)
+    .writeInt32(0x12345678)
+    .writeString('a')
+    .writeStringZ('b');
 
   var b = bb.getBuffer();
   test.deepEqual(b, new Buffer([0x11, 0x12, 0x34, 0x12, 0x34, 0x56, 0x78, 0x61, 0x62, 0x00]))
